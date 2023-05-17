@@ -47,13 +47,13 @@ export class ExamplePage extends React.Component<{ extension: Renderer.LensExten
 
   async componentDidMount() {
     // TODO Manual fetch and watch is wasteful. Investigate catalogs
-    const config = await configMapApi.get({ name: "ci-resources", namespace: "jenkins" });
+    const config = await configMapApi.get({ name: "ci-resources", namespace: "kube-system" });
     this.setState(prev => ({
       ...prev,
       config,
     }));
 
-    this.configWatcher = configMapApi.watch({ namespace: "jenkins", callback: (data) => {
+    this.configWatcher = configMapApi.watch({ namespace: "kube-system", callback: (data) => {
       console.log("config map data", data);
       if (data) {
         const config = (data.object as any) as ConfigMap;
@@ -134,7 +134,7 @@ export class ExamplePage extends React.Component<{ extension: Renderer.LensExten
   async onUpdateConfig(field: string, value: string) {
     console.log(`Update config ${field} to ${value}`);
 
-    const result = await configMapApi.patch({ name: "ci-resources", namespace: "jenkins" }, {
+    const result = await configMapApi.patch({ name: "ci-resources", namespace: "kube-system" }, {
       data: {
         [field]: value,
       },
