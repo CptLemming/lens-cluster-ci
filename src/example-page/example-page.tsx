@@ -135,7 +135,7 @@ export class ExamplePage extends React.Component<
           this.setState((prev) => ({
             ...prev,
             pods: {
-              ...prev.nodes,
+              ...prev.pods,
               [pod.metadata.name]: pod,
             } as any,
           }));
@@ -262,7 +262,7 @@ export class ExamplePage extends React.Component<
         sum + parseInt(node.metadata.labels?.["scheduler/jenkins"]),
       0
     );
-    const used = pods.reduce((sum, pod) => 
+    const used = pods.filter(pod => !!pod.spec.nodeName).reduce((sum, pod) => 
       sum + this.getPodResourceCost(pod.metadata.name, e2eResource, prResource)
     , 0);
 

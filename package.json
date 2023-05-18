@@ -1,6 +1,6 @@
 {
 	"name": "lens-cluster-ci",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Cluster CI resources",
 	"publisher": "@calrec/lens-cluster-ci",
 	"main": "dist/main.js",
