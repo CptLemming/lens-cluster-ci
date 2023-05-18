@@ -244,23 +244,27 @@ export class ExamplePage extends React.Component<
     console.log(result);
   }
 
+  getPodResourceCost(podName: string, e2eResource: string, prResource: string) {
+    const isE2E = podName.includes("e2e");
+    return (isE2E ? parseInt(e2eResource) : parseInt(prResource));
+  }
+
   render() {
     const { activeTab } = this.state;
     
     const nodes = Object.values(this.state.nodes);
     const pods = Object.values(this.state.pods);
     const e2eResource = this.state.config?.data?.["e2e-resource"];
-    const prResources = this.state.config?.data?.["pr-resource"];
+    const prResource = this.state.config?.data?.["pr-resource"];
 
     const available = nodes.reduce(
       (sum, node) =>
         sum + parseInt(node.metadata.labels?.["scheduler/jenkins"]),
       0
     );
-    const used = pods.reduce((sum, pod) => {
-      const isE2E = pod.metadata.name.includes("e2e");
-      return sum + (isE2E ? parseInt(e2eResource) : parseInt(prResources));
-    }, 0);
+    const used = pods.reduce((sum, pod) => 
+      sum + this.getPodResourceCost(pod.metadata.name, e2eResource, prResource)
+    , 0);
 
     return (
       <TabLayout>
@@ -309,7 +313,7 @@ export class ExamplePage extends React.Component<
               <p>PR</p>
               <Input
                 name="pr-resource"
-                value={prResources}
+                value={prResource}
                 onChange={(value) => this.onUpdateConfig("pr-resource", value)}
               />
             </div>
@@ -395,7 +399,7 @@ export class ExamplePage extends React.Component<
                   <TableRow nowrap>
                     <TableCell>{pod.metadata.name}</TableCell>
                     <TableCell>
-                      <i>TODO</i>
+                      <i>{this.getPodResourceCost(pod.metadata.name, e2eResource, prResource)}</i>
                     </TableCell>
                     <TableCell>{pod.spec.nodeName}</TableCell>
                   </TableRow>
