@@ -334,6 +334,7 @@ export class ExamplePage extends React.Component<
               background: "var(--contentColor)",
               padding: "calc(var(--margin)*2)",
               flex: 1,
+              overflow: "auto",
             }}
           >
             <Tabs
