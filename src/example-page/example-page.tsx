@@ -353,6 +353,7 @@ export class ExamplePage extends React.Component<
                   <TableCell>Resources</TableCell>
                   <TableCell>BuildKit</TableCell>
                   <TableCell>Jenkins worker</TableCell>
+                  <TableCell>Jenkins runner</TableCell>
                 </TableHead>
 
                 {nodes.map((node) => (
@@ -381,6 +382,15 @@ export class ExamplePage extends React.Component<
                         value={"jenkins/worker" in node.metadata.labels}
                         onChange={(val) =>
                           this.onToggleNodeLabel(node, "jenkins/worker", val)
+                        }
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Checkbox
+                        label="Enabled"
+                        value={"jenkins/runner" in node.metadata.labels}
+                        onChange={(val) =>
+                          this.onToggleNodeLabel(node, "jenkins/runner", val)
                         }
                       />
                     </TableCell>
