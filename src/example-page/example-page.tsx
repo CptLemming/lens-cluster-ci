@@ -61,7 +61,7 @@ export class ExamplePage extends React.Component<
     // TODO Manual fetch and watch is wasteful. Investigate catalogs
     const config = await configMapApi.get({
       name: "ci-resources",
-      namespace: "kube-system",
+      namespace: "jenkins-scheduler",
     });
     this.setState((prev) => ({
       ...prev,
@@ -69,7 +69,7 @@ export class ExamplePage extends React.Component<
     }));
 
     this.configWatcher = configMapApi.watch({
-      namespace: "kube-system",
+      namespace: "jenkins-scheduler",
       callback: (data) => {
         console.log("config map data", data);
         if (data) {
@@ -200,7 +200,7 @@ export class ExamplePage extends React.Component<
     console.log(`Update config ${field} to ${value}`);
 
     const result = await configMapApi.patch(
-      { name: "ci-resources", namespace: "kube-system" },
+      { name: "ci-resources", namespace: "jenkins-scheduler" },
       {
         data: {
           [field]: value,
