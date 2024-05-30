@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-var-requires: "off" */
-
+const webpack = require("webpack");
 const path = require("path");
 
 module.exports = [
@@ -66,6 +66,11 @@ module.exports = [
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env.npm_package_version": JSON.stringify(require("./package.json").version)
+      })
+    ],
     output: {
       libraryTarget: "commonjs2",
       globalObject: "this",

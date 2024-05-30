@@ -275,7 +275,7 @@ export class ExamplePage extends React.Component<
               padding: "calc(var(--margin)*2)",
             }}
           >
-            <h4>Cluster resources</h4>
+            <h4>Cluster resources - {`v(${process.env.npm_package_version})`}</h4>
 
             <div>
               <p>
@@ -357,7 +357,7 @@ export class ExamplePage extends React.Component<
                 </TableHead>
 
                 {nodes.map((node) => (
-                  <TableRow nowrap>
+                  <TableRow key={node.getId()} nowrap>
                     <TableCell>{node.metadata.name}</TableCell>
                     <TableCell>
                       <Input
@@ -407,7 +407,7 @@ export class ExamplePage extends React.Component<
                 </TableHead>
 
                 {pods.map((pod) => (
-                  <TableRow nowrap>
+                  <TableRow key={pod.getId()} nowrap>
                     <TableCell>{pod.metadata.name}</TableCell>
                     <TableCell>
                       <i>{this.getPodResourceCost(pod.metadata.name, e2eResource, prResource)}</i>
