@@ -357,7 +357,7 @@ export class ExamplePage extends React.Component<
                 </TableHead>
 
                 {nodes.map((node) => (
-                  <TableRow key={node.getId()} nowrap>
+                  <TableRow key={node.metadata.name} nowrap>
                     <TableCell>{node.metadata.name}</TableCell>
                     <TableCell>
                       <Input
@@ -407,7 +407,7 @@ export class ExamplePage extends React.Component<
                 </TableHead>
 
                 {pods.map((pod) => (
-                  <TableRow key={pod.getId()} nowrap>
+                  <TableRow key={pod.metadata.name} nowrap>
                     <TableCell>{pod.metadata.name}</TableCell>
                     <TableCell>
                       <i>{this.getPodResourceCost(pod.metadata.name, e2eResource, prResource)}</i>
