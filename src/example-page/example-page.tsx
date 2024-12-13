@@ -354,6 +354,8 @@ export class ExamplePage extends React.Component<
                   <TableCell>BuildKit</TableCell>
                   <TableCell>Jenkins worker</TableCell>
                   <TableCell>Jenkins runner</TableCell>
+                  <TableCell>AoIP</TableCell>
+                  <TableCell>Hosting</TableCell>
                 </TableHead>
 
                 {nodes.map((node) => (
@@ -391,6 +393,24 @@ export class ExamplePage extends React.Component<
                         value={"jenkins/runner" in node.metadata.labels}
                         onChange={(val) =>
                           this.onToggleNodeLabel(node, "jenkins/runner", val)
+                        }
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Checkbox
+                        label="Enabled"
+                        value={"supports/aoip-networking" in node.metadata.labels}
+                        onChange={(val) =>
+                          this.onToggleNodeLabel(node, "supports/aoip-networking", val)
+                        }
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Checkbox
+                        label="Enabled"
+                        value={"node-role.kubernetes.io/hosting" in node.metadata.labels}
+                        onChange={(val) =>
+                          this.onToggleNodeLabel(node, "node-role.kubernetes.io/hosting", val)
                         }
                       />
                     </TableCell>
